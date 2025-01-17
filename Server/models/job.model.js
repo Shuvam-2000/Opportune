@@ -39,11 +39,11 @@ const JobSchema = mongoose.Schema({
     },
     applications: [
         {
-            type: mongoose.Schema.Types.ObjectId,   // refernce to the application model
+            type: mongoose.Schema.Types.ObjectId,   // reference to the application model
             ref: 'Applications'
         }
     ]
-});
+}, {timestamps: true});
 
 const JobModel = mongoose.model('Jobs', JobSchema);
 
