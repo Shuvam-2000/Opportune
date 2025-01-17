@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import './utils/connection.js'
 import { configDotenv } from 'dotenv';
+import userRoute from './routes/user.routes.js'
 
 
 // intilaize the app
@@ -27,6 +28,9 @@ app.use(cors({
 app.get('/', (req,res) => {
     res.send('Hello Server Is Runing');
 });
+
+// defining routes for the application
+app.use('/user', userRoute);  // user route
 
 // Start the Server
 app.listen(PORT, () => console.log(`Server runing on PORT: ${PORT}`));
