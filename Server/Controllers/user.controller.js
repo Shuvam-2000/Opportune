@@ -102,8 +102,50 @@ export const userLogout = async(req,res) => {
     res.clearCookie('token', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // use secure cookies in production
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',// Use 'none' for cross-origin in production, 'lax' for local development
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Use 'none' for cross-origin in production, 'lax' for local development
         maxAge: 0
     });
-    res.status(200).json({ message: 'Logged Out Successfully' });
+    res.status(200).json({ 
+        message: 'Logged Out Successfully' });
 };
+
+// user profile update
+export const userProfileUpdate = async (req, res) => {
+    try {
+        // fetching the fields to be updated
+        const updates = req.body; 
+
+        // Convert 'skills' string to array if provided
+        if (updates.skills) {
+            updates["profile.skills"] = updates.skills.split(',');
+        }
+
+        // Check if 'bio field is provided and make sure its under profile object 
+        if(updates.bio) {
+            updates["profile.bio"] = updates.bio;
+        } 
+
+        // Extract ID of the user from the request parameters
+        const userid = req.params.userid;
+
+        // Update the user profile with the provided fields only
+        const user = await UserModel.findByIdAndUpdate(userid, updates, { new: true });
+
+        if (!user) return res.status(400).json({
+            message: 'User Not Found',
+            success: false
+        });
+
+        res.status(200).json({
+            message: 'Profile Updated Successfully',
+            success: true,
+            user
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false,
+        });
+    }
+};
+
