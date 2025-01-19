@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 const CompanySchema = mongoose.Schema({
     companyName: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     description: {
        type: String
