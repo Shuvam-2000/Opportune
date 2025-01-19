@@ -4,7 +4,7 @@ import cors from 'cors';
 import './utils/connection.js'
 import { configDotenv } from 'dotenv';
 import userRoute from './routes/user.routes.js'
-
+import companyRoute from './routes/company.routes.js'
 
 // intilaize the app
 const app = express();
@@ -31,6 +31,7 @@ app.get('/', (req,res) => {
 
 // defining routes for the application
 app.use('/user', userRoute);  // user route
+app.use('/company', companyRoute); // comapany route
 
 // Start the Server
 app.listen(PORT, () => console.log(`Server runing on PORT: ${PORT}`));
