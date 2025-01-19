@@ -71,7 +71,8 @@ export const userLogin = async (req,res) => {
         // Intialize jwt token for the user
         const jwtToken = jwt.sign({ 
             email: userLogin.email, 
-            id: userLogin._id}, 
+            id: userLogin._id,
+            role: userLogin.role}, 
             process.env.JWT_SECRET, 
             {expiresIn: '1d'}
         );
@@ -149,3 +150,28 @@ export const userProfileUpdate = async (req, res) => {
     }
 };
 
+// user profile delete
+export const useProfileDelete = async (req,res) => {
+    try {
+        const userid = req.params.userid;
+
+        // find user profile with the id and delete user profile 
+        const deleteUserProfile = await UserModel.findByIdAndDelete(userid);
+
+        // check if user is avaliable
+        if(!deleteUserProfile) res.status(400).json({
+            message: 'User Not Found',
+            success: false
+        });
+
+        res.status(200).json({
+            message: 'Profile Deleted SuccesFully',
+            success: true
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false
+        })
+    }
+}
