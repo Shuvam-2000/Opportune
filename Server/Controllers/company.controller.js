@@ -142,3 +142,50 @@ export const getcompaniesByID = async (req,res) => {
         });
     }
 }
+
+// update registered Company Info
+export const updateCompanyInfo = async (req,res) => {
+    try {
+        // fetching the fields to be updated
+        const updates = req.body;
+
+        // check if fields are provided
+        if(!updates) return res.status(400).json({
+            message: 'No fields Provided for update',
+            success: false
+        })
+
+        // fetching the company details to be updated by id
+        const id = req.params.id;
+
+        if(!id) return res.status(400).json({
+            message: 'Company Not Found',
+            success: false
+        })
+
+        // extracting the userid from middleware
+        const userId = req.user?.id;
+
+        // updating the company details with the provided fields only 
+        const updateCompanyInfo = await CompanyModel.findByIdAndUpdate({ 
+            _id: id, userId: userId },  // Filter by company ID and user ID
+            updates,   // Apply the updates
+            {new: true});
+
+        if(!updateCompanyInfo) return res.status(400).json({
+            message: 'Error Updating Company Info. Please Try Again Later',
+            success: false
+        });
+
+        res.status(201).json({
+            message: 'Company Info Updated SuccessFully',
+            success: true,
+            updateCompanyInfo
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false
+        });
+    }
+}
