@@ -10,7 +10,8 @@ const JobSchema = mongoose.Schema({
         required: true
     },
     jobRequirements: {
-        type: String
+        type: String,
+        required: true
     },
     packageOffered: {
         type: Number,
@@ -25,6 +26,10 @@ const JobSchema = mongoose.Schema({
     },
     openPositions: {
         type: Number,
+        required: true
+    },
+    experience: {
+        type: String,
         required: true
     },
     company: {
