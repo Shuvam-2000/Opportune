@@ -3,7 +3,11 @@ import CompanyModel from "../models/company.model.js";
 // register new company
 export const registerCompany = async (req,res) => {
     try {
-        const { companyName, description, companyWebsite, companyLocation, companyLogo } = req.body;
+        const { companyName, 
+                description, 
+                companyWebsite, 
+                companyLocation, 
+                companyLogo } = req.body;
 
         // check if he required fields are given 
         if(!companyName || !description || !companyLocation) return res.status(400).json({
