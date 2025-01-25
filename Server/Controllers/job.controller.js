@@ -5,13 +5,13 @@ import CompanyModel from "../models/company.model.js";
 export const createNewJob = async (req,res) => {
     try {
         const { jobTitle, 
-            jobDescription, 
-            jobRequirements, 
-            packageOffered, 
-            jobLocation, 
-            jobType, 
-            openPositions,
-            experience } = req.body;
+                jobDescription, 
+                jobRequirements, 
+                packageOffered, 
+                jobLocation, 
+                jobType, 
+                openPositions,
+                experience } = req.body;
     
         // check if all the fields provided to create new job
         if(!jobTitle || 
@@ -84,7 +84,9 @@ export const getAllJobs = async (req,res) => {
         }
 
         // extract all jobs from the database
-        const allJobs = await JobModel.find(query);
+        const allJobs = await JobModel.find(query).populate({
+            path: 'company'
+        });
 
         // check if jobs avaliable
         if(!allJobs) return res.status(404).json({
@@ -96,6 +98,40 @@ export const getAllJobs = async (req,res) => {
             message: 'Here are the Following Jobs Avaliable Now',
             success: true,
             allJobs
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false
+        })
+    }
+}
+
+// get jobs by Id
+export const getJobsById = async (req,res) => {
+    try {
+        // fetching the job id from the req object
+        const id = req.params.id;
+
+        // check if id is avaliable
+        if(!id) return res.status(404).json({
+            message: 'Invalid Job Id',
+            success: false
+        })
+
+        // find the job with its particular id
+        const job = await JobModel.findById(id);
+
+        // check if the job is avaliable
+        if(!job) return res.status(404).json({
+            message: 'Job Not Avaliabe Now',
+            success: false
+        })
+
+        res.status(201).json({
+            message: 'Job Is Avaliable',
+            success: true,
+            job
         })
     } catch (error) {
         res.status(500).json({
