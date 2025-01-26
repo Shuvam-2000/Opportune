@@ -6,6 +6,7 @@ import { configDotenv } from 'dotenv';
 import userRoute from './routes/user.routes.js';
 import companyRoute from './routes/company.routes.js';
 import jobRoute from './routes/job.routes.js';
+import applicationRoute from './routes/application.routes.js'
 
 // intilaize the app
 const app = express();
@@ -34,6 +35,7 @@ app.get('/', (req,res) => {
 app.use('/user', userRoute);  // user route
 app.use('/company', companyRoute); // comapany route
 app.use('/jobs', jobRoute); // job route
+app.use('/application', applicationRoute); // application route
 
 // Start the Server
 app.listen(PORT, () => console.log(`Server runing on PORT: ${PORT}`));
