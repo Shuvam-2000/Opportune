@@ -77,9 +77,11 @@ export const getAllJobsApplied = async (req,res) => {
         });
 
         // get all the jobs applied by the user in ascending order
-        const applications = await ApplicationModel.find({ applicant: userId }).sort({ createdAt:-1 }).populate({
+        const applications = await ApplicationModel.find({ applicant: userId })
+        .sort({ createdAt:-1 })
+        .populate({
             path: 'job',
-            options:{sort:{createdAt:-1}},  // sort the job in ascending order
+            options:{sort:{createdAt:-1}},  // sort the job in descending order
             populate:{  
                 path: 'company',  // retrive the companyinfo 
                 options:{sort:{createdAt:-1}},
@@ -97,7 +99,84 @@ export const getAllJobsApplied = async (req,res) => {
             applications
         });
     } catch (error) {
-        res.status.json({
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false
+        });
+    }
+}
+
+// fetch no of user and the users Info applied to the job
+export const getApplicants = async (req,res) => {
+    try {
+
+        // extracting the job with the id to find how many users applied
+        const { id } = req.params;
+
+        const job = await JobModel.findById(id).populate({
+            path: 'applications',
+            options:{sort:{createdAt:-1}},  // sort the job in descending order
+            populate:{
+                path: 'applicant'
+            }
+        });
+
+        if(!job) return res.status(404).json({
+            message: 'Job Not Found',
+            success: false
+        });
+
+        res.status(200).json({
+            message: 'Job Found',
+            success: true,
+            job
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: 'Internal Server Error',
+            success: false
+        });
+    }
+}
+
+// update job application status
+export const applicationStatus = async (req,res) => {
+    try {
+        // job application status from the frontend
+        const { applicationStatus } = req.body;
+
+        if(!applicationStatus) return res.status(400).json({
+            message: 'Status Is Required'
+        })
+
+        // extract applications Id 
+        const applicationId = req.params.id;
+
+        if(!applicationId) return res.status(400).json({
+            message: 'Application Id is Required'
+        });
+
+        // find the job application by applicantionId
+        const jobApplication = await ApplicationModel.findOne({ 
+        _id: applicationId });
+
+        if(!jobApplication) return res.status(400).json({
+            message: 'Job Application Not Found',
+            success: false
+        });
+
+        // update the application status as per requirement 
+        jobApplication.applicationStatus = applicationStatus.toLowerCase();
+        await jobApplication.save();  // save the updated status to the application collections in the db
+
+        res.status(200).json({
+            message: 'Job Application Found',
+            success: true,
+            jobApplication
+        });
+    } catch (error) {
+        res.status(500).json({
             message: 'Internal Server Error',
             success: false
         });
