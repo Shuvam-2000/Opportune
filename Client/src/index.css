@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+a.active p{
+    color: #f21c1c;
+}
+
+a.active hr{
+    display: block;
+}
+
+@media (max-width: 640px) {
+    a.active{
+        color: #f21c1c;
+    }
+}
