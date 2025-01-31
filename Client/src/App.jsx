@@ -6,6 +6,7 @@ import ExploreJobs from "./pages/ExploreJobs";
 import Companies from "./pages/Companies";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
+import SIgnUp from "./pages/SIgnUp";
 import "./index.css";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/companies" element={<Companies />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SIgnUp />} />
           </Routes>
           <Footer />
         </BrowserRouter>
