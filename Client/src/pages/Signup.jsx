@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -12,8 +10,20 @@ const SignUp = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    console.log("Form Submitted", data);
+    const formData = new FormData();
+
+    // Append normal text fields
+    for (const key in data) {
+      if (key === "profilePicture" && data.profilePicture.length > 0) {
+        formData.append("profilePicture", data.profilePicture[0]); // Append file with other fields
+      } else {
+        formData.append(key, data[key]); // Append only normal fields
+      }
+    }
+
+    // testing the form submission ( will be replaced with actual API call)
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log("Form Submitted", Object.fromEntries(formData.entries())); // Debugging output
     reset();
   };
 
@@ -21,7 +31,7 @@ const SignUp = () => {
     <div className="flex items-center justify-center min-h-screen">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col items-center w-full sm:max-w-md bg-white shadow-lg rounded-xl p-6 sm:p-10 border border-gray-200"
+        className="flex flex-col items-center w-full sm:max-w-lg bg-white shadow-lg rounded-xl p-6 sm:p-10 border border-gray-200 mt-8 mb-6"
       >
         <h2 className="text-3xl font-semibold text-gray-800 font-mono mb-4">
           Sign Up
@@ -123,7 +133,7 @@ const SignUp = () => {
             Password
           </label>
           <input
-            type="password"
+            type="text"
             className={`w-full px-4 py-2 ml-1 text-sm border rounded-lg hover:border-black ${
               errors.password ? "border-red-500" : "border-gray-300"
             }`}
@@ -182,6 +192,21 @@ const SignUp = () => {
           )}
         </div>
 
+        {/* Add Profile Picture */}
+        <div className="w-full mt-3">
+          <label className="block text-sm font-medium text-gray-700 m-2">
+            Profile Picture
+          </label>
+          <div className="flex gap-4 mt-1">
+            <input
+              type="file"
+              accept="image/*"
+              {...register("profilePicture")}
+              className="text-sm py-2 px-4 border rounded-md cursor-pointer"
+            />
+          </div>
+        </div>
+
         {/* Submit Button */}
         <button
           disabled={isSubmitting}
@@ -191,11 +216,11 @@ const SignUp = () => {
         </button>
 
         {/* Already Have an Account */}
-        <p
-          onClick={() => navigate("/login")}
-          className="text-gray-600 hover:text-red-500 cursor-pointer text-sm mt-4"
-        >
-          Already have an account? <span className="underline">Login</span>
+        <p className="text-gray-600 cursor-pointer text-sm mt-4">
+          Already have an account?{" "}
+          <span className="underline hover:text-red-500">
+            <Link to="/login">Login</Link>
+          </span>
         </p>
       </form>
     </div>
