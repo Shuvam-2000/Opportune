@@ -1,3 +1,5 @@
+import axios from "axios";
+import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -12,9 +14,24 @@ const Login = () => {
   } = useForm();
 
   const onsubmit = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-    console.log("Form Submitted", data);
-    reset();
+    try {
+      const response = await axios.post('http://localhost:4000/user/login', data, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        withCredentials: true,
+      });
+      toast.success(response.data.message);
+      reset();
+      navigate("/"); 
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || "Login failed");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+      reset();
+    }
   };
 
   return (
