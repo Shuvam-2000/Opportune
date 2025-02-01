@@ -1,4 +1,5 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Toaster } from 'react-hot-toast';
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[4vw]">
+        <Toaster />
         <BrowserRouter>
           <Navbar />
           <Routes>
