@@ -1,7 +1,11 @@
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -14,17 +18,36 @@ const SignUp = () => {
 
     // Append normal text fields
     for (const key in data) {
-      if (key === "profilePicture" && data.profilePicture.length > 0) {
+      if (key === "profilePicture" && data.profilePicture?.length > 0) {
         formData.append("profilePicture", data.profilePicture[0]); // Append file with other fields
       } else {
         formData.append(key, data[key]); // Append only normal fields
       }
     }
 
-    // testing the form submission ( will be replaced with actual API call)
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log("Form Submitted", Object.fromEntries(formData.entries())); // Debugging output
-    reset();
+    // API call for user registration
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/user/signup",
+        formData, // sending formdata to the backend
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
+      toast.success(response.data.message);
+      reset();
+      navigate("/login");
+    } catch (error) {
+      if (error.response) {
+        toast.error(error.response.data.message || "Error submitting form");
+        reset();
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    }
   };
 
   return (
@@ -67,40 +90,6 @@ const SignUp = () => {
           )}
         </div>
 
-        {/* Phone Number Field */}
-        <div className="w-full mt-3">
-          <label className="block text-sm font-medium text-gray-700 m-2">
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            className={`w-full px-4 py-2 ml-1 text-sm border rounded-lg hover:border-black ${
-              errors.phonenumber ? "border-red-500" : "border-gray-300"
-            }`}
-            placeholder="Enter Your Phone Number"
-            {...register("phonenumber", {
-              required: "Phone Number is required",
-              minLength: {
-                value: 10,
-                message: "Phone number must be exactly 10 digits",
-              },
-              maxLength: {
-                value: 10,
-                message: "Phone number must be exactly 10 digits",
-              },
-              pattern: {
-                value: /^[0-9]+$/,
-                message: "Phone number must contain only numbers",
-              },
-            })}
-          />
-          {errors.phonenumber && (
-            <p className="text-xs text-red-500 mt-1 ml-2">
-              {errors.phonenumber.message}
-            </p>
-          )}
-        </div>
-
         {/* Email Field */}
         <div className="w-full mt-3">
           <label className="block text-sm font-medium text-gray-700 m-2">
@@ -123,6 +112,40 @@ const SignUp = () => {
           {errors.email && (
             <p className="text-xs text-red-500 mt-1 ml-2">
               {errors.email.message}
+            </p>
+          )}
+        </div>
+
+        {/* Phone Number Field */}
+        <div className="w-full mt-3">
+          <label className="block text-sm font-medium text-gray-700 m-2">
+            Phone Number
+          </label>
+          <input
+            type="tel"
+            className={`w-full px-4 py-2 ml-1 text-sm border rounded-lg hover:border-black ${
+              errors.phonenumber ? "border-red-500" : "border-gray-300"
+            }`}
+            placeholder="Enter Your Phone Number"
+            {...register("phoneNumber", {
+              required: "Phone Number is required",
+              minLength: {
+                value: 10,
+                message: "Phone number must be exactly 10 digits",
+              },
+              maxLength: {
+                value: 10,
+                message: "Phone number must be exactly 10 digits",
+              },
+              pattern: {
+                value: /^[0-9]+$/,
+                message: "Phone number must contain only numbers",
+              },
+            })}
+          />
+          {errors.phonenumber && (
+            <p className="text-xs text-red-500 mt-1 ml-2">
+              {errors.phonenumber.message}
             </p>
           )}
         </div>
