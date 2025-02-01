@@ -22,8 +22,23 @@ export const newUserRegistration = async (req,res) => {
             success: false 
         });
 
+        // // If profile picture is uploaded, get the file path (currently local)
+        // let profilePictureUrl = "";
+        // if (req.file) {
+        //     profilePictureUrl = req.file.path;  // Will replace with Cloudinary URL later
+        // }
+
+
         // register new user with required fields & securely hash the password
-        const newUser = new UserModel({ fullname, email, phoneNumber, password, role });
+        const newUser = new UserModel({
+            fullname,
+            email,
+            phoneNumber,
+            password,
+            role,
+            // profile: { profilePicture: profilePictureUrl } // Store the image path
+        });
+
         newUser.password = await bcrypt.hash(password, 10); // hash the password with bycrpt
         await newUser.save(); // save the user details in the database
         res.status(200).json({ 
