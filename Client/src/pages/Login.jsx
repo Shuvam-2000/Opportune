@@ -2,9 +2,13 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setlodaing } from "../store/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.auth);
 
   const {
     register,
@@ -15,15 +19,20 @@ const Login = () => {
 
   const onsubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:4000/user/login', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        withCredentials: true,
-      });
+      dispatch(setlodaing(true));
+      const response = await axios.post(
+        "http://localhost:4000/user/login",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
       toast.success(response.data.message);
       reset();
-      navigate("/"); 
+      navigate("/");
     } catch (error) {
       if (error.response) {
         toast.error(error.response.data.message || "Login failed");
@@ -31,6 +40,8 @@ const Login = () => {
         toast.error("An unexpected error occurred");
       }
       reset();
+    } finally {
+      dispatch(setlodaing(false));
     }
   };
 
@@ -150,10 +161,17 @@ const Login = () => {
 
         {/* Submit Button */}
         <button
-          disabled={isSubmitting}
-          className="w-full bg-red-500 hover:bg-red-600 text-white font-medium text-sm py-2 rounded-lg mt-4 cursor-pointer transition-all disabled:opacity-50"
+          disabled={isSubmitting || loading}
+          className="w-full bg-red-500 hover:bg-red-600 text-white font-medium text-sm py-2 rounded-lg mt-4 cursor-pointer transition-all disabled:opacity-50 flex items-center justify-center"
         >
-          {isSubmitting ? "Submitting..." : "Login"}
+          {isSubmitting || loading ? (
+            <>
+              <span className="mr-2">Submitting...</span>
+              <div className="spinner-border animate-spin h-5 w-5 border-t-2 border-white rounded-full"></div>
+            </>
+          ) : (
+            "Login"
+          )}
         </button>
       </form>
     </div>
