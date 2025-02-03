@@ -101,7 +101,7 @@ export const userLogin = async (req,res) => {
         });
 
         res.status(200).json({
-            message: `Welcome back ${userLogin.fullname}`,
+            message: `Welcome ${userLogin.fullname}`,
             success: true
         });
     }catch (error) {
