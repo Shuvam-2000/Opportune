@@ -22,7 +22,7 @@ const ExploreJobs = () => {
       </div>
 
       {/* Job Listings & Filters */}
-      <div className="flex flex-col sm:flex-row sm:gap-12 mt-8">
+      <div className="flex flex-col sm:flex-row sm:gap-4 mt-8">
         {/* Job Filter (Left) */}
         <div className="w-full sm:w-1/3">
           <button
