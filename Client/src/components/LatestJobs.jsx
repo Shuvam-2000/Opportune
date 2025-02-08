@@ -3,13 +3,16 @@ const LatestJobs = () => {
 
   return (
     <div className="mt-8 px-4">
-      <h1 className="sm:text-2xl text-xl font-bold text-center mb-6">
+      <h1 className="sm:text-2xl text-xl font-bold text-center mb-2">
         Latest <span className="text-red-500">Job Openings—</span>
       </h1>
+      <p className="text-center text-gray-500 sm:text-sm text-xs mb-8">
+          Discover exciting & latest job opportunities that match your skills 
+        </p>
 
       {/* Job Postings */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {jobs.slice(0,6).map((job) => (
+        {jobs.slice(0, 6).map((job) => (
           <div
             key={job}
             className=" rounded-lg shadow-md hover:shadow-2xl transition-all duration-300 hover:bg-gray-50 cursor-pointer p-6 flex flex-col items-center text-center py-10"
