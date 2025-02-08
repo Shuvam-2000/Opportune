@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { AlignRight } from "lucide-react";
 import profile_icon from "../assets/profile_icon.png";
-import menu_icon from "../assets/menu_icon.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -88,11 +88,10 @@ const Navbar = () => {
           </div>
         )}
 
-        {/* Mobile Menu Icon */}
-        <img
-          src={menu_icon}
-          alt="menu-icon"
-          className="sm:w-5 w-4 cursor-pointer md:hidden text-[#f9755b]"
+        {/* Side Menu Icon */}
+        <AlignRight
+          className="md:hidden cursor-pointer"
+          size={20}
           onClick={() => setMenuVisible(!menuVisible)}
         />
       </div>
