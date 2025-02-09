@@ -46,7 +46,7 @@ const ExploreJobs = () => {
 
               <label className="flex items-center space-x-2 text-gray-600 cursor-pointer">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="location"
                   className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
                 />
@@ -54,7 +54,7 @@ const ExploreJobs = () => {
               </label>
               <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="location"
                   className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
                 />
@@ -62,11 +62,107 @@ const ExploreJobs = () => {
               </label>
               <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
                 <input
-                  type="radio"
+                  type="checkbox"
                   name="location"
                   className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
                 />
                 <span className="text-sm">Pune</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Delhi NCR</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Kolkata</span>
+              </label>
+            </div>
+
+            {/* Job Role Filter */}
+            <div className="border border-gray-300 bg-white shadow-md rounded-lg p-4 w-56 mt-4">
+              <h1 className="text-md font-medium text-gray-700 mb-3">
+                Job Role :
+              </h1>
+
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Frontend Developer</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Software Developer</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Software Enginner</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Backend Developer</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">UI/UX Designer</span>
+              </label>
+            </div>
+
+            {/* Job Type */}
+            <div className="border border-gray-300 bg-white shadow-md rounded-lg p-4 w-56 mt-4">
+              <h1 className="text-md font-medium text-gray-700 mb-3">
+                Job Type :
+              </h1>
+
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Full Time</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Part Time</span>
+              </label>
+              <label className="flex items-center space-x-2 text-gray-600 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="location"
+                  className="h-3 w-3 text-red-600 focus:ring-red-500 cursor-pointer"
+                />
+                <span className="text-sm">Internship</span>
               </label>
             </div>
           </div>
@@ -85,17 +181,18 @@ const ExploreJobs = () => {
                   <h1 className="text-lg mr-8 font-bold text-gray-900">
                     Company Name
                   </h1>
+                  <p className="text-sm text-gray-700 font-medium mt-2 mb-4">
+                    Job Title
+                  </p>
                   <p className="text-sm text-gray-600">
                     Short job description goes here.
                   </p>
-                  <p className="text-sm text-gray-700 font-medium mt-4">
-                    Job Title
-                  </p>
 
-                  <div className="flex justify-between text-sm text-gray-500 font-medium mt-6 sm:gap-0 gap-4">
-                    <span>Job Type</span>
+                  <div className="flex justify-between text-sm text-gray-500 font-medium mt-8 sm:gap-4 gap-4">
+                    <span>Type</span>
                     <span>Package</span>
                     <span>Experience</span>
+                    <span>Positions</span>
                   </div>
                 </div>
 
