@@ -35,8 +35,8 @@ const Navbar = () => {
           <li className="py-1">EXPLORE JOBS</li>
           <hr className="border-none outline-none h-0.5 bg-red-600 w-3/5 m-auto hidden group-hover:block" />
         </NavLink>
-        <NavLink to="/companies" className="group">
-          <li className="py-1">COMPANIES</li>
+        <NavLink to="/browse" className="group">
+          <li className="py-1">BROWSE</li>
           <hr className="border-none outline-none h-0.5 bg-red-600 w-3/5 m-auto hidden group-hover:block" />
         </NavLink>
       </ul>
@@ -128,10 +128,10 @@ const Navbar = () => {
           </NavLink>
           <NavLink
             className="py-2 pl-6 text-center font-medium"
-            to="/companies"
+            to="/browse"
             onClick={() => setMenuVisible(false)}
           >
-            Companies
+            Browse
           </NavLink>
           {isAuthenticated ? (
             ""
