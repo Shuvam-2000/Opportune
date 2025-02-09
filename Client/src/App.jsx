@@ -4,10 +4,10 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ExploreJobs from "./pages/ExploreJobs";
-import Companies from "./pages/Companies";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import SIgnUp from "./pages/SIgnUp";
+import Browse from "./pages/Browse";
 import "./index.css";
 
 function App() {
@@ -20,10 +20,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explorejobs" element={<ExploreJobs />} />
-            <Route path="/companies" element={<Companies />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SIgnUp />} />
+            <Route path="/browse" element={<Browse />} />
           </Routes>
           <Footer />
         </BrowserRouter>
