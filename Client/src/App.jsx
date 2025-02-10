@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import ExploreJobs from "./pages/ExploreJobs";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp"; 
+import SignUp from "./pages/SignUp";
 import Browse from "./pages/Browse";
 import "./index.css";
 
