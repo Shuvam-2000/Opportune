@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setlodaing } from "../store/authSlice";
+import { setlodaing, setUser } from "../store/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -31,6 +31,7 @@ const Login = () => {
         }
       );
       toast.success(response.data.message);
+      dispatch(setUser(response.data.user))
       reset();
       navigate("/");
     } catch (error) {
