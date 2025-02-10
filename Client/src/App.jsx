@@ -1,34 +1,34 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import { Toaster } from 'react-hot-toast';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import ExploreJobs from "./pages/ExploreJobs";
-import Profile from "./pages/Profile";
+import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
-import SIgnUp from "./pages/SIgnUp";
+import SignUp from "./pages/SignUp"; 
 import Browse from "./pages/Browse";
 import "./index.css";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
+      <Toaster />
       <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[4vw]">
-        <Toaster />
-        <BrowserRouter>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/explorejobs" element={<ExploreJobs />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SIgnUp />} />
-            <Route path="/browse" element={<Browse />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
+        <Routes>
+          {/* Routes with Navbar and Footer */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="explorejobs" element={<ExploreJobs />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="browse" element={<Browse />} />
+          </Route>
+
+          {/* Route for Dashboard without Navbar and Footer */}
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
       </div>
-    </>
+    </BrowserRouter>
   );
 }
 
