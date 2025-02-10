@@ -1,7 +1,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { AlignRight } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../store/authSlice";
 import profile_icon from "../assets/profile_icon.png";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -12,8 +16,23 @@ const Navbar = () => {
   // state to handle profile menu
   const [profileMenuVisible, setProfileMenuVisible] = useState(false);
 
-  // state to handle the login button dynamically by checking user authentication
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // store for handling the login button and proifle icon dynamically during user authentication
+  const { user } = useSelector((store) => store.auth);
+
+  const dispatch = useDispatch();
+
+  // user logout functionality
+  const handleLogout = async () => {
+    try {
+      await axios.get("http://localhost:4000/user/logout", {
+        withCredentials: true,
+      });
+      dispatch(setUser(null));
+      toast.success("Logged Out SuccessFully");
+    } catch (error) {
+      toast.error("Logout error:", error);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between text-sm py-4 border-b border-b-gray-300 relative">
@@ -44,7 +63,7 @@ const Navbar = () => {
       {/* Right Section */}
       <div className="flex items-center gap-6">
         {/* Profile Icon or Login Button */}
-        {isAuthenticated ? (
+        {user ? (
           <img
             src={profile_icon}
             alt="profile-icon"
@@ -62,28 +81,25 @@ const Navbar = () => {
 
         {/* Profile Dropdown Menu */}
         {profileMenuVisible && (
-          <div className="absolute right-0 mt-38 bg-white shadow-lg rounded-lg w-40 z-10">
+          <div className="absolute right-0 mt-34 py-2 bg-white shadow-lg rounded-lg w-40 z-10">
             <ul className="flex flex-col text-gray-700">
               <NavLink
-                to="/"
+                to="/dashboard"
                 className="px-4 py-2 hover:bg-gray-100 hover:text-red-500"
                 onClick={() => setProfileMenuVisible(false)}
               >
-                Profile
+                Your Dashboard
               </NavLink>
               <NavLink
                 to="/"
                 className="px-4 py-2 hover:bg-gray-100 hover:text-red-500"
-                onClick={() => setProfileMenuVisible(false)}
-              >
-                Jobs
-              </NavLink>
-              <button
-                className="px-4 py-2 text-left w-full hover:bg-gray-100 hover:text-red-500"
-                onClick={() => setProfileMenuVisible(false)}
+                onClick={() => {
+                  setProfileMenuVisible(false);
+                  handleLogout();
+                }}
               >
                 Logout
-              </button>
+              </NavLink>
             </ul>
           </div>
         )}
@@ -133,7 +149,7 @@ const Navbar = () => {
           >
             Browse
           </NavLink>
-          {isAuthenticated ? (
+          {user ? (
             ""
           ) : (
             <NavLink
