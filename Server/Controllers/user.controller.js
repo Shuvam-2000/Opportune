@@ -175,9 +175,17 @@ export const useProfileDelete = async (req,res) => {
         const deleteUserProfile = await UserModel.findByIdAndDelete(userid);
 
         // check if user is avaliable
-        if(!deleteUserProfile) res.status(400).json({
+        if(!deleteUserProfile) return res.status(400).json({
             message: 'User Not Found',
             success: false
+        });
+
+        // clear the cookie when user deletes the profile 
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // use secure cookies in production
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Use 'none' for cross-origin in production, 'lax' for local development
+            maxAge: 0
         });
 
         res.status(200).json({
