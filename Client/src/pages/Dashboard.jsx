@@ -7,12 +7,21 @@ const Dashboard = () => {
     <>
       <div className="flex items-center justify-between text-sm py-4 border-b border-b-gray-300 relative">
         {/* Username */}
-        <h1 className="sm:text-3xl text-2xl font-bold text-black cursor-pointer">
-          Hi,
-          <span className="sm:text-3xl text-2xl font-bold text-red-600">
-            { user ? user.fullname : null }
-          </span>
-        </h1>
+        {user ? (
+          <h1 className="sm:text-3xl text-2xl font-bold text-black cursor-pointer">
+            Hi,{" "}
+            <span className="sm:text-3xl text-2xl font-bold text-red-600">
+              {user.fullname}
+            </span>
+          </h1>
+        ) : (
+          <h1 className="sm:text-3xl text-2xl font-bold text-black cursor-pointer">
+            Guest{" "}
+            <span className="sm:text-3xl text-2xl font-bold text-red-600">
+              User
+            </span>
+          </h1>
+        )}
       </div>
       <Profile />
     </>
