@@ -1,10 +1,40 @@
 import { ArrowLeftToLine } from "lucide-react";
+import { Pencil } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import profile_image from "../assets/proifle_image.webp";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../store/authSlice";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const Profile = () => {
   const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // delete user profile fucntioanality
+  const handleProfileDelete = async () => {
+    try {
+      if (!user?._id) {
+        return toast.error("User ID not found");
+      }
+      console.log("Deleting profile with ID:", user._id);
+      const res = await axios.delete(
+        `http://localhost:4000/user/profiledelete/${user?._id}`,
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.success) {
+        dispatch(setUser(null));
+        toast.success(res.data.message || "Profile Deleted SuccessFully");
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error("Error Deleting User Proifle", error);
+    }
+  };
 
   // in case profile lading fails
   if (!user) {
@@ -67,6 +97,17 @@ const Profile = () => {
             </p>
           </div>
         </div>
+      </div>
+      <div className="flex flex-row gap-4 mt-4 mb-4">
+        <button className="border border-black px-4 py-2 rounded-md hover:bg-blue-500 text-sm transition-all duration-500 hover:text-white flex items-center gap-2 cursor-pointer">
+          <Pencil size={16} /> Update Profile
+        </button>
+        <button
+          onClick={handleProfileDelete}
+          className="border border-black px-4 py-2 rounded-md hover:bg-red-500 text-sm transition-all duration-500 hover:text-white flex items-center gap-2 cursor-pointer"
+        >
+          <Trash2 size={16} /> Delete Profile
+        </button>
       </div>
     </>
   );
