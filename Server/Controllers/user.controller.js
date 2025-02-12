@@ -180,14 +180,6 @@ export const useProfileDelete = async (req,res) => {
             success: false
         });
 
-        // clear the cookie when user deletes the profile 
-        res.clearCookie('token', {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production', // use secure cookies in production
-            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', // Use 'none' for cross-origin in production, 'lax' for local development
-            maxAge: 0
-        });
-
         res.status(200).json({
             message: 'Profile Deleted SuccesFully',
             success: true
