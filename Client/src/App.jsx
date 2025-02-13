@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import ExploreJobs from "./pages/ExploreJobs";
 import Dashboard from "./pages/Dashboard";
+import AppliedJobs from "./pages/AppliedJobs";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Browse from "./pages/Browse";
@@ -26,6 +27,7 @@ function App() {
 
           {/* Route for Dashboard without Navbar and Footer */}
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/appliedjobs" element={<AppliedJobs />} />
         </Routes>
       </div>
     </BrowserRouter>
