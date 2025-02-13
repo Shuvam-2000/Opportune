@@ -1,10 +1,10 @@
 import { ArrowLeftToLine } from "lucide-react";
 import { Pencil } from "lucide-react";
 import { Trash2 } from "lucide-react";
-import profile_image from "../assets/proifle_image.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../store/authSlice";
+import profile_image from "../assets/proifle_image.webp";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -13,13 +13,12 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // delete user profile fucntioanality
+  // delete user profile fucntionality
   const handleProfileDelete = async () => {
     try {
       if (!user?._id) {
         return toast.error("User ID not found");
       }
-      console.log("Deleting profile with ID:", user._id);
       const res = await axios.delete(
         `http://localhost:4000/user/profiledelete/${user?._id}`,
         {
@@ -85,6 +84,23 @@ const Profile = () => {
                 {user.profile?.skills.join(" , ") || "No bio available"}
               </span>
             </p>
+            <p className="text-sm font-medium text-gray-700">
+              Resume:{" "}
+              {user.profile?.resume ? (
+                <a
+                  href={user.profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  {user.profile.resumeOriginalName || "Download Resume"}
+                </a>
+              ) : (
+                <span className="text-gray-900 font-medium">
+                  No resume available
+                </span>
+              )}
+            </p>
             <p className="text-sm font-semibold text-gray-700">
               Email:{" "}
               <span className="text-gray-900 font-medium">{user.email}</span>
@@ -100,7 +116,7 @@ const Profile = () => {
       </div>
       <div className="flex flex-row gap-4 mt-4 mb-4">
         <button className="border border-black px-4 py-2 rounded-md hover:bg-blue-500 text-sm transition-all duration-500 hover:text-white flex items-center gap-2 cursor-pointer">
-          <Pencil size={16} /> Update Profile
+          <Pencil size={16} /> Edit Profile
         </button>
         <button
           onClick={handleProfileDelete}
