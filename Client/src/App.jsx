@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ExploreJobs from "./pages/ExploreJobs";
 import Dashboard from "./pages/Dashboard";
 import AppliedJobs from "./pages/AppliedJobs";
+import JobDescription from "./pages/JobDescription";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Browse from "./pages/Browse";
@@ -23,6 +24,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="browse" element={<Browse />} />
+            <Route path="jobdescription/:id" element={<JobDescription />} />
           </Route>
 
           {/* Route for Dashboard without Navbar and Footer */}
