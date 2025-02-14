@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ExploreJobs = () => {
   // state to show job filters
   const [showFilters, setShowFilters] = useState(false);
+  const navigate = useNavigate()
 
   // job array(will be replaced by actual API call)
   const jobs = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -197,7 +199,7 @@ const ExploreJobs = () => {
                 </div>
 
                 {/* Apply Button */}
-                <button className="text-sm bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg sm:px-6 sm:py-2 px-20 py-2 transition-all duration-300 cursor-pointer">
+                <button onClick={() => navigate('/jobdescription/:id')} className="text-sm bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg sm:px-6 sm:py-2 px-20 py-2 transition-all duration-300 cursor-pointer">
                   Apply
                 </button>
               </div>
