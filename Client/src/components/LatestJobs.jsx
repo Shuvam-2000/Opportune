@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const LatestJobs = () => {
   const jobs = [1, 2, 3, 4, 5, 6, 7, 8];
+  const navigate = useNavigate()
 
   return (
     <div className="mt-8 px-4">
@@ -40,7 +43,7 @@ const LatestJobs = () => {
                   Experience
                 </p>
               </div>
-              <button className="w-full text-sm bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg py-2 transition-all duration-300 cursor-pointer">
+              <button onClick={() => navigate('/jobdescription/:id')} className="w-full text-sm bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg py-2 transition-all duration-300 cursor-pointer">
                 Apply
               </button>
             </div>
