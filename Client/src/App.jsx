@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Browse from "./pages/Browse";
 import "./index.css";
+import UpdateProfile from "./pages/UpdateProfile";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           {/* Route for Dashboard without Navbar and Footer */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
         </Routes>
       </div>
     </BrowserRouter>
