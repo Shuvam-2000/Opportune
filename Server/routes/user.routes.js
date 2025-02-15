@@ -7,7 +7,7 @@ import {
   userProfileUpdate,
 } from "../Controllers/user.controller.js";
 import { isUserAuthenticated } from "../middlewares/user.middlwares.js";
-import { singleUpload } from "../middlewares/multer.js";
+import { resumeUpload, singleUpload } from "../middlewares/multer.js";
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.post("/login", userLogin);
 router.get("/logout", userLogout);
 
 // user profie update route
-router.put("/profileupdate/:userid", isUserAuthenticated, userProfileUpdate);
+router.put("/profileupdate/:userid", isUserAuthenticated, resumeUpload, userProfileUpdate);
 
 // usrer profile delete route
 router.delete('/profiledelete/:userid', isUserAuthenticated, useProfileDelete);
