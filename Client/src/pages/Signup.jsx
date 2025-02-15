@@ -238,7 +238,6 @@ const SignUp = () => {
         </div>
 
         {/* Submit Button */}
-        {/* Submit Button */}
         <button
           disabled={isSubmitting || loading}
           className="w-full bg-red-500 hover:bg-red-600 text-white font-medium text-sm py-2 rounded-lg mt-4 cursor-pointer transition-all disabled:opacity-50 flex items-center justify-center"
