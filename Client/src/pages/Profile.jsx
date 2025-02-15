@@ -115,12 +115,12 @@ const Profile = () => {
         </div>
       </div>
       <div className="flex flex-row gap-4 mt-4 mb-4">
-        <button className="border border-black px-4 py-2 rounded-md hover:bg-blue-500 text-sm transition-all duration-500 hover:text-white flex items-center gap-2 cursor-pointer">
+        <button onClick={() => navigate('/update-profile')} className="px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white text-sm transition-all duration-500 flex items-center gap-2 cursor-pointer">
           <Pencil size={16} /> Edit Profile
         </button>
         <button
           onClick={handleProfileDelete}
-          className="border border-black px-4 py-2 rounded-md hover:bg-red-500 text-sm transition-all duration-500 hover:text-white flex items-center gap-2 cursor-pointer"
+          className="px-4 py-2 rounded-md bg-red-500 hover:bg-red-600 text-white text-sm transition-all duration-500 flex items-center gap-2 cursor-pointer"
         >
           <Trash2 size={16} /> Delete Profile
         </button>
