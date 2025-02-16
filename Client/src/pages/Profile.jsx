@@ -86,14 +86,14 @@ const Profile = () => {
             </p>
             <p className="text-sm font-medium text-gray-700">
               Resume:{" "}
-              {user.profile?.resume ? (
+              {user?.profile?.resume ? (
                 <a
-                  href={user.profile.resume}
+                  href={user?.profile?.resume}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:underline"
                 >
-                  {user.profile.resumeOriginalName || "Download Resume"}
+                  {user?.profile?.resumeOriginalName || "Download Resume"}
                 </a>
               ) : (
                 <span className="text-gray-900 font-medium">
