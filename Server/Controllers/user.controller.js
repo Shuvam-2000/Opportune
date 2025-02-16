@@ -2,6 +2,8 @@ import UserModel from "../models/user.model.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { configDotenv } from 'dotenv';
+import { getDataUri } from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 // Load Environment Variables
 configDotenv();
@@ -129,42 +131,59 @@ export const userLogout = async(req,res) => {
 // user profile update
 export const userProfileUpdate = async (req, res) => {
     try {
-        // fetching the fields to be updated
-        const updates = req.body; 
+        // Fetch the fields to be updated
+        const updates = req.body;
+        const updateFields = { ...updates };  // Include all updates directly
 
-        // Convert 'skills' string to array if provided
-        if (updates.skills) {
-            updates["profile.skills"] = updates.skills.split(',');
+        // File upload to Cloudinary (only if a file is provided)
+        const file = req.file;
+        if (file) {
+            const fileURi = getDataUri(file);
+            const cloudResponse = await cloudinary.uploader.upload(fileURi.content);
+
+            if (cloudResponse) {
+                updateFields["profile.resume"] = cloudResponse.secure_url;
+                updateFields["profile.resumeOriginalName"] = file.originalname;
+            }
         }
 
-        // Check if 'bio field is provided and make sure its under profile object 
-        if(updates.bio) {
-            updates["profile.bio"] = updates.bio;
-        } 
+        // Convert 'skills' string to an array if provided
+        if (updates.skills) {
+            updateFields["profile.skills"] = updates.skills.split(",");
+        }
 
-        // Extract ID of the user from the request parameters
+        // Ensure 'bio' is placed correctly in the profile object
+        if (updates.bio) {
+            updateFields["profile.bio"] = updates.bio;
+        }
+
+        // Extract user ID from request parameters
         const userid = req.params.userid;
 
-        // Update the user profile with the provided fields only
-        const user = await UserModel.findByIdAndUpdate(userid, updates, { new: true });
+        // Update the user profile with only the provided fields
+        const user = await UserModel.findByIdAndUpdate(userid, { $set: updateFields }, { new: true });
 
-        if (!user) return res.status(400).json({
-            message: 'User Not Found',
-            success: false
-        });
+        if (!user) {
+            return res.status(400).json({
+                message: "User Not Found",
+                success: false
+            });
+        }
 
         res.status(200).json({
-            message: 'Profile Updated Successfully',
+            message: "Profile Updated Successfully",
             success: true,
             user
         });
     } catch (error) {
         res.status(500).json({
-            message: 'Internal Server Error',
+            message: "Internal Server Error",
             success: false,
+            error: error.message
         });
     }
 };
+
 
 // user profile delete
 export const useProfileDelete = async (req,res) => {
