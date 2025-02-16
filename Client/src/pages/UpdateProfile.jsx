@@ -18,7 +18,7 @@ const UpdateProfile = () => {
     email: user?.email || "",
     phoneNumber: user?.phoneNumber || "",
     bio: user?.profile?.bio || "",
-    skills: user?.profile?.skills ? user?.profile?.skills.join(" , ") : "",
+    skills: user?.profile?.skills ? user?.profile?.skills.join(",") : "",
     resume: user?.profile?.resume || ""
   });
 
@@ -43,7 +43,7 @@ const UpdateProfile = () => {
     formData.append("bio", updateInfo.bio);
     formData.append("skills", updateInfo.skills)
     if(updateInfo.file){
-      formData.append("file", updateInfo.file)
+      formData.append("resume", updateInfo.file)
     }
     if (!user?._id) {
       return toast.error("User ID not found");
