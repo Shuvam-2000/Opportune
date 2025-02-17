@@ -58,9 +58,10 @@ const Profile = () => {
       <div className=" border border-gray-300 shadow-lg rounded-lg max-w-screen-2xl container mx-auto md:px-20 px-4 flex flex-col md:flex-row my-10 items-center md:items-start sm:gap-14">
         <div className="flex justify-center md:justify-start w-full md:w-auto cursor-pointer mt-10 sm:mt-12">
           <img
-            src={profile_image}
+            src={user?.profile?.profilePicture || profile_image}
             alt="Profile"
-            className="w-32 h-32 md:w-48 md:h-48 rounded-full border-4 border-gray-500 object-cover"
+            className={`w-32 h-32 md:w-48 md:h-48 rounded-full object-cover
+              ${user?.profile?.profilePicture ? 'border-none' : 'border-4 border-gray-500'}`}
           />
         </div>
 
@@ -81,7 +82,7 @@ const Profile = () => {
             <p className="text-sm font-medium text-gray-700">
               Skills:{" "}
               <span className="text-gray-900 font-medium">
-                {user.profile?.skills.join(" , ") || "No bio available"}
+                {user.profile?.skills.join(" , ") || "No skills available"}
               </span>
             </p>
             <p className="text-sm font-medium text-gray-700">
