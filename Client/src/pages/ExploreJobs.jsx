@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ExploreJobs = () => {
   // state to show job filters
   const [showFilters, setShowFilters] = useState(false);
-  const navigate = useNavigate()
 
-  // job array(will be replaced by actual API call)
-  const jobs = [1, 2, 3, 4, 5, 6, 7, 8];
+  // fetching all the jobs posted from the redux store
+  const { alljobs } = useSelector((store) => store.job);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen px-4 sm:px-8 py-4">
@@ -172,40 +173,49 @@ const ExploreJobs = () => {
 
         {/* Job Cards (Right) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full sm:mt-0 mt-10">
-          {jobs.length > 0 ? (
-            jobs.map((job) => (
+          {alljobs.length > 0 ? (
+            alljobs.map((job) => (
               <div
-                key={job}
+                key={job._id}
                 className="bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:bg-gray-50 cursor-pointer sm:p-10 p-6 flex flex-col sm:flex-row items-center gap-6 border border-gray-200"
               >
                 {/* Job Info */}
                 <div className="flex flex-col flex-grow sm:gap-1 gap-3">
                   <h1 className="text-lg mr-8 font-bold text-gray-900">
-                    Company Name
+                    {job.company?.companyName}
                   </h1>
                   <p className="text-sm text-gray-700 font-medium mt-2 mb-4">
-                    Job Title
+                    {job.jobTitle}
                   </p>
-                  <p className="text-sm text-gray-600">
-                    Short job description goes here.
-                  </p>
+                  <p className="text-sm text-gray-600">{job.jobDescription}</p>
 
-                  <div className="flex justify-between text-sm text-gray-500 font-medium mt-8 sm:gap-4 gap-4">
-                    <span>Type</span>
-                    <span>Package</span>
-                    <span>Experience</span>
-                    <span>Positions</span>
+                  <div className="flex flex-wrap justify-between text-sm text-gray-500 font-medium mt-8 gap-4">
+                    <span className="w-full sm:w-auto">
+                      Type: {job.jobType || "Not Disclosed"}
+                    </span>
+                    <span className="w-full sm:w-auto">
+                      Package: {job.packageOffered || "Not Disclosed"}
+                    </span>
+                    <span className="w-full sm:w-auto">
+                      Exp: {job.experience}
+                    </span>
+                    <span className="w-full sm:w-auto">
+                      Positions: {job.openPositions || "Not Disclosed"}
+                    </span>
                   </div>
                 </div>
 
                 {/* Apply Button */}
-                <button onClick={() => navigate('/jobdescription/:id')} className="text-sm bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg sm:px-6 sm:py-2 px-20 py-2 transition-all duration-300 cursor-pointer">
-                  Apply
+                <button
+                  onClick={() => navigate(`/jobdescription/${job._id}`)}
+                  className="text-sm bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg sm:px-6 sm:py-2 px-20 py-2 transition-all duration-300 cursor-pointer"
+                >
+                  Details
                 </button>
               </div>
             ))
           ) : (
-            <p className="text-center col-span-full text-gray-500">
+            <p className="text-center mt-20 col-span-full text-gray-500">
               No Jobs Available Now
             </p>
           )}
