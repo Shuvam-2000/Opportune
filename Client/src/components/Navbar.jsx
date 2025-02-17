@@ -65,9 +65,13 @@ const Navbar = () => {
         {/* Profile Icon or Login Button */}
         {user ? (
           <img
-            src={profile_icon}
+            src={user?.profile?.profilePicture || profile_icon}
             alt="profile-icon"
-            className="sm:w-6 w-4 cursor-pointer"
+            className={
+              user?.profile?.profilePicture
+                ? "sm:w-10 w-8 h-8 sm:h-10 rounded-full object-cover border border-gray-300 cursor-pointer"
+                : "sm:w-6 w-4 cursor-pointer"
+            }                                                 
             onClick={() => setProfileMenuVisible(!profileMenuVisible)}
           />
         ) : (
