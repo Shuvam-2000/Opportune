@@ -17,19 +17,18 @@ export const newUserRegistration = async (req,res) => {
             success: false 
         })
 
+        // setting up cloudinary for profile pciture upload
+        const file = req.file
+        const fileURi = getDataUri(file);
+        const cloudResponse = await cloudinary.uploader.upload(fileURi.content); 
+
+
         // Check if user already exists
         const user = await UserModel.findOne({ email });
         if(user) return res.status(400).json({ 
             message: 'User Already Exists', 
             success: false 
         });
-
-        // // If profile picture is uploaded, get the file path (currently local)
-        // let profilePictureUrl = "";
-        // if (req.file) {
-        //     profilePictureUrl = req.file.path;  // Will replace with Cloudinary URL later
-        // }
-
 
         // register new user with required fields & securely hash the password
         const newUser = new UserModel({
@@ -38,7 +37,9 @@ export const newUserRegistration = async (req,res) => {
             phoneNumber,
             password,
             role,
-            // profile: { profilePicture: profilePictureUrl } // Store the image path
+            profile: { 
+                profilePicture: cloudResponse.secure_url,
+            } 
         });
 
         newUser.password = await bcrypt.hash(password, 10); // hash the password with bycrpt
@@ -133,20 +134,18 @@ export const userProfileUpdate = async (req, res) => {
     try {
         // Fetch the fields to be updated
         const updates = req.body;
-        const updateFields = { ...updates };  // Include all updates directly
+        const updateFields = { ...updates };  // Include all updates directly to the updates fields
 
-        // File upload to Cloudinary (only if a file is provided)
+        // upload file to cloudinary only if file is provided
         const file = req.file;
-        if (file) {
+        if (req.file) {
             const fileURi = getDataUri(file);
             const cloudResponse = await cloudinary.uploader.upload(fileURi.content);
-
-            if (cloudResponse) {
-                updateFields["profile.resume"] = cloudResponse.secure_url;
-                updateFields["profile.resumeOriginalName"] = file.originalname;
-            }
+            
+            updateFields["profile.resume"] = cloudResponse.secure_url;
+            updateFields["profile.resumeOriginalName"] = req.file.originalname;
         }
-
+        
         // Convert 'skills' string to an array if provided
         if (updates.skills) {
             updateFields["profile.skills"] = updates.skills.split(",");
