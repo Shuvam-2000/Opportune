@@ -9,8 +9,8 @@ import JobDescription from "./pages/JobDescription";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Browse from "./pages/Browse";
-import "./index.css";
 import UpdateProfile from "./pages/UpdateProfile";
+import "./index.css";
 
 function App() {
   return (
