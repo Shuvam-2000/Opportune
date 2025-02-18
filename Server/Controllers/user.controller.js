@@ -17,11 +17,14 @@ export const newUserRegistration = async (req,res) => {
             success: false 
         })
 
-        // setting up cloudinary for profile pciture upload
-        const file = req.file
-        const fileURi = getDataUri(file);
-        const cloudResponse = await cloudinary.uploader.upload(fileURi.content); 
+        let profilePicture = undefined;   // set profile picture to undefined by default
 
+        // if profile picture provided uplod it to cloudinary
+        if (req.file) {
+            const fileURi = getDataUri(req.file);
+            const cloudResponse = await cloudinary.uploader.upload(fileURi.content);
+            profilePicture = cloudResponse.secure_url; // Set uploaded image URL 
+        }
 
         // Check if user already exists
         const user = await UserModel.findOne({ email });
@@ -38,7 +41,7 @@ export const newUserRegistration = async (req,res) => {
             password,
             role,
             profile: { 
-                profilePicture: cloudResponse.secure_url,
+                profile: profilePicture ? { profilePicture } : undefined, // if provided give profile picture URL or keep it undefined
             } 
         });
 
