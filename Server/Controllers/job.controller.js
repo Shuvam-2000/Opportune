@@ -120,7 +120,9 @@ export const getJobsById = async (req,res) => {
         })
 
         // find the job with its particular id
-        const job = await JobModel.findById(id);
+        const job = await JobModel.findById(id).populate({
+            path: 'applications'
+        });
 
         // check if the job is avaliable
         if(!job) return res.status(404).json({
