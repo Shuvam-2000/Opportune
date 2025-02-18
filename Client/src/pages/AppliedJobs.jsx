@@ -21,11 +21,20 @@ const AppliedJobs = () => {
         );
         setAppliedJobs(res.data.applications);
       } catch (error) {
-        setErrorMessage("You Have Not Applied To Any Jobs Till Now");
+        setErrorMessage(error.res.data.message);
       }
     };
     appliedJobData();
   }, []);
+
+  // in case loading fails
+  if (!appliedJobs) {
+    return (
+      <p className="text-center text-gray-700 mt-50 text-lg font-bold">
+        Loading Applied Jobs....
+      </p>
+    );
+  }
   return (
     <>
       <Dashboard showProfile={false} />
