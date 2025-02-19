@@ -10,6 +10,10 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Browse from "./pages/Browse";
 import UpdateProfile from "./pages/UpdateProfile";
+import Company from "./admin/Company";
+import JobPosted from "./admin/JobPosted";
+import UpdateInfo from "./admin/UpdateInfo";
+import AddNewCompany from "./admin/AddNewCompany";
 import "./index.css";
 
 function App() {
@@ -28,7 +32,13 @@ function App() {
             <Route path="jobdescription/:id" element={<JobDescription />} />
           </Route>
 
-          {/* Route for Dashboard without Navbar and Footer */}
+          {/* Route for Admin */}
+          <Route path="/admin/companies" element={<Company />} />
+          <Route path="/admin/jobs" element={<JobPosted />} />
+          <Route path="/update-compnayinfo" element={<UpdateInfo />} />
+          <Route path="/admin/register-company" element={<AddNewCompany />} />
+
+          {/* Route for Dashboard(User Profile) */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
