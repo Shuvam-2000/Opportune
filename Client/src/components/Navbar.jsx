@@ -49,7 +49,7 @@ const Navbar = () => {
         {user && user.role === "recruiter" ? (
           <>
             <NavLink to="/admin/companies" className="group">
-              <li className="py-1">COMPANIES</li>
+              <li className="py-1">COMPANY</li>
               <hr className="border-none outline-none h-0.5 bg-red-600 w-3/5 m-auto hidden group-hover:block" />
             </NavLink>
             <NavLink to="/admin/jobs" className="group">
@@ -77,6 +77,14 @@ const Navbar = () => {
 
       {/* Right Section */}
       <div className="flex items-center gap-6">
+        {
+          user && user.role === 'recruiter' && (
+            <>
+              <h1 className="sm:block hidden sm:text-xl text-sm font-bold text-black cursor-pointer">Hi, {" "} 
+              <span className="sm:text-xl text-sm font-bold text-red-600">{user.fullname}</span></h1>
+            </>
+          )
+        }
         {/* Profile Icon or Login Button */}
         {user ? (
           <img
@@ -100,7 +108,7 @@ const Navbar = () => {
 
         {/* Profile Dropdown Menu */}
         {profileMenuVisible && (
-          <div className={`absolute right-0 ${user && user.role === "recruiter" ? 'mt-20' : 'mt-34'} py-2 bg-white shadow-lg rounded-lg w-40 z-10`}>
+          <div className={`absolute right-0 ${user && user.role === "recruiter" ? 'mt-22 mr-4' : 'mt-34'} py-2 bg-white shadow-lg rounded-lg w-40 z-10`}>
             <ul className="flex flex-col text-gray-700">
               {user && user.role !== "recruiter" && (
                 <NavLink
@@ -151,12 +159,14 @@ const Navbar = () => {
           {/* Sidebar Links */}
           {user && user.role === "recruiter" ? (
             <>
+              <h1 className="text-xl font-bold text-center text-black cursor-pointer">Hi, {" "} 
+              <span className="text-xl font-bold text-red-600">{user.fullname}</span></h1>
               <NavLink
                 className="py-2 pl-6 text-center font-medium"
                 to="/admin/companies"
                 onClick={() => setMenuVisible(false)}
               >
-                Companies
+                Company
               </NavLink>
               <NavLink
                 className="py-2 pl-6 text-center font-medium"
