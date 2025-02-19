@@ -1,10 +1,12 @@
-import { FaFacebook } from "react-icons/fa";
-import { FaInstagramSquare } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
-import { FaYoutube } from "react-icons/fa";
+import { FaFacebook, FaInstagramSquare, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  
+  // fetching user information from the store
+  const { user } = useSelector((store) => store.auth);
+
   return (
     <div className="text-[#414141] py-14">
       <div className="flex flex-col sm:grid grid-cols-1 gap-10 sm:gap-14 my-10 text-sm">
@@ -15,23 +17,36 @@ const Footer = () => {
             Oppor<span className="text-[#f21c1c]">tune</span>
           </h1>
           <p className="mt-4 sm:text-sm text-xs font-mono text-gray-600">
-            Discover, explore, and apply to latest jobs, accelerate your carrier
-            with Opportune
+            Discover, explore, and apply to the latest jobs. Accelerate your career with Opportune.
           </p>
 
           <h2 className="text-lg font-semibold mt-6 mb-4 tracking-widest">
-            JOBS & CAREERS—
+            {user && user.role === "recruiter" ? "DASHBOARD—" : "JOBS & CAREERS—"}
           </h2>
+
           <div className="space-x-6">
-            <Link to="/" className="text-black hover:text-[#f21c1c]">
-              Home
-            </Link>
-            <Link to="/explorejobs" className="text-black hover:text-[#f21c1c]">
-              Explore Jobs
-            </Link>
-            <Link to="/browse" className="text-black hover:text-[#f21c1c]">
-              Browse
-            </Link>
+            {user && user.role === "recruiter" ? (
+              <>
+                <Link to="/admin/companies" className="text-black hover:text-[#f21c1c]">
+                  My Company
+                </Link>
+                <Link to="/admin/jobs" className="text-black hover:text-[#f21c1c]">
+                  Jobs Posted
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/" className="text-black hover:text-[#f21c1c]">
+                  Home
+                </Link>
+                <Link to="/explorejobs" className="text-black hover:text-[#f21c1c]">
+                  Explore Jobs
+                </Link>
+                <Link to="/browse" className="text-black hover:text-[#f21c1c]">
+                  Browse
+                </Link>
+              </>
+            )}
           </div>
         </div>
 
