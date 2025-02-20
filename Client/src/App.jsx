@@ -22,7 +22,7 @@ function App() {
       <Toaster />
       <div className="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[4vw]">
         <Routes>
-          {/* Routes with Navbar and Footer */}
+          {/* Routes for Client */}
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="explorejobs" element={<ExploreJobs />} />
@@ -32,13 +32,13 @@ function App() {
             <Route path="jobdescription/:id" element={<JobDescription />} />
           </Route>
 
-          {/* Route for Admin */}
+          {/* Routes for Admin */}
           <Route path="/admin/companies" element={<Company />} />
           <Route path="/admin/jobs" element={<JobPosted />} />
-          <Route path="/update-compnayinfo" element={<UpdateInfo />} />
+          <Route path="/update-companyinfo/:id" element={<UpdateInfo />} />
           <Route path="/admin/register-company" element={<AddNewCompany />} />
 
-          {/* Route for Dashboard(User Profile) */}
+          {/* Routes for Dashboard(User Profile) */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/appliedjobs" element={<AppliedJobs />} />
           <Route path="/update-profile" element={<UpdateProfile />} />
