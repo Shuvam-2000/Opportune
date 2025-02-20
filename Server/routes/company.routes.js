@@ -8,6 +8,7 @@ import {
 } from "../Controllers/company.controller.js";
 import { isUserAuthenticated } from "../middlewares/user.middlwares.js";
 import { isUserRecruiter } from "../middlewares/company.middlewares.js";
+import { companyLogo } from "../middlewares/multer.js";
 
 const router = express.Router();
 
@@ -33,6 +34,7 @@ router.put(
   "/companyInfo/:id",
   isUserAuthenticated,
   isUserRecruiter,
+  companyLogo,
   updateCompanyInfo
 );
 
