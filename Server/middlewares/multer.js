@@ -8,3 +8,6 @@ export const singleUpload = multer({ storage }).single("profilePicture")
 
 // Uploading the resume
 export const resumeUpload = multer({ storage }).single("resume");
+
+// company loogo upload
+export const companyLogo = multer({ storage }).single("logo");
