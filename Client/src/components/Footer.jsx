@@ -11,7 +11,7 @@ const Footer = () => {
     <div className="text-[#414141] py-14">
       <div className="flex flex-col sm:grid grid-cols-1 gap-10 sm:gap-14 my-10 text-sm">
         
-        {/* Company Links Section */}
+        {/* Admin Links Section */}
         <div className="text-center font-mono">
           <h1 className="sm:text-3xl text-2xl font-bold text-black">
             Oppor<span className="text-[#f21c1c]">tune</span>
@@ -36,6 +36,7 @@ const Footer = () => {
               </>
             ) : (
               <>
+                {/* Client Links Section */}
                 <Link to="/" className="text-black hover:text-[#f21c1c]">
                   Home
                 </Link>
