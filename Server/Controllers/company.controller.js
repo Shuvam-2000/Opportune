@@ -4,14 +4,11 @@ import CompanyModel from "../models/company.model.js";
 export const registerCompany = async (req,res) => {
     try {
         const { companyName, 
-                description, 
-                companyWebsite, 
-                companyLocation, 
-                companyLogo } = req.body;
+                description } = req.body;
 
         // check if he required fields are given 
-        if(!companyName || !description || !companyLocation) return res.status(400).json({
-            message: 'Company Name is Required',
+        if(!companyName || !description) return res.status(400).json({
+            message: 'Required fields missing..',
             success: false
         });
 
@@ -37,9 +34,6 @@ export const registerCompany = async (req,res) => {
         const registerNewCompany = new CompanyModel({
             companyName,
             description,
-            companyWebsite,
-            companyLocation,
-            companyLogo,
             userId
         });
 
@@ -47,7 +41,8 @@ export const registerCompany = async (req,res) => {
         await registerNewCompany.save();
         res.status(201).json({
             message: `Welcome to Opportune ${companyName}`,
-            success: true
+            success: true,
+            company: registerNewCompany
         });
     } catch (error) {
         res.status(500).json({
