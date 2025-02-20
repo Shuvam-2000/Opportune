@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 const Dashboard = ({ showProfile = true }) => {
-  // store for handling the login button and proifle icon dynamically during user authentication
+  // fetching user information from the store
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
 
