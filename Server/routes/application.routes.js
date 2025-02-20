@@ -17,7 +17,7 @@ router.get("/apply/:id", isUserAuthenticated, candidateApplyToJob);
 router.get("/jobsapplied", isUserAuthenticated, getAllJobsApplied);
 
 // route for fetching the no of user and the users info for a job applicatiion with the jobid
-router.get("/applicants/:id", isUserAuthenticated, getApplicants);
+router.get("/applicants/:id", isUserAuthenticated, isUserRecruiter, getApplicants);
 
 // route for updating the job application status
 router.post(
