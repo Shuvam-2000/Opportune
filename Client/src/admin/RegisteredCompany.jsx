@@ -22,7 +22,7 @@ const RegisteredCompany = () => {
             <td className="px-4 py-3 text-sm">2025-02-19</td>
             <td className="px-4 py-3 text-center">
               <button
-                onClick={() => navigate("/update-compnayinfo")}
+                onClick={() => navigate("/update-companyinfo/:id")}
                 className="bg-green-500 text-white px-4 py-2 rounded-md text-xs sm:text-sm hover:bg-green-600 transition cursor-pointer"
               >
                 Update
