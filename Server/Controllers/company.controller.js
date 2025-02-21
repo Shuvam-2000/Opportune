@@ -1,4 +1,6 @@
 import CompanyModel from "../models/company.model.js";
+import { getDataUri } from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 // register new company
 export const registerCompany = async (req,res) => {
@@ -75,7 +77,7 @@ export const getRegisteredCompany = async (req,res) => {
         res.status(201).json({
             message: 'Companies Found',
             success: true,
-            allCompanies
+            company: allCompanies
         });
     } catch (error) {
         res.status(500).json({
@@ -146,7 +148,16 @@ export const getcompaniesByID = async (req,res) => {
 export const updateCompanyInfo = async (req,res) => {
     try {
         // fetching the fields to be updated
-        const updates = req.body;
+        const updates = { ...req.body };
+
+        const file = req.file 
+        
+            // if companylogo provided upload it to cloudinary
+            if (file) {
+                const fileURi = getDataUri(file);
+                const cloudResponse = await cloudinary.uploader.upload(fileURi.content);
+                updates.companyLogo = cloudResponse.secure_url; 
+            }
 
         // check if fields are provided
         if(!updates) return res.status(400).json({
@@ -179,7 +190,7 @@ export const updateCompanyInfo = async (req,res) => {
         res.status(201).json({
             message: 'Company Info Updated SuccessFully',
             success: true,
-            updateCompanyInfo
+            updateInfo: updateCompanyInfo
         });
     } catch (error) {
         res.status(500).json({
