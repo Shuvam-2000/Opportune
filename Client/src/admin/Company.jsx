@@ -2,9 +2,12 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import RegisteredCompany from "./RegisteredCompany";
+import useGetAllCompanies from "../hooks/useGetAllCompanies";
 
 const Company = () => {
-  const navigate = useNavigate()
+  // fetch company data from the backend
+  useGetAllCompanies();
+  const navigate = useNavigate();
   return (
     <>
       <Navbar />
@@ -14,8 +17,11 @@ const Company = () => {
             className="border border-gray-400 rounded-md text-sm px-3 py-1 sm:px-4 sm:py-2 w-full sm:w-60 hover:border-black"
             placeholder="Filter By Name"
           />
-          <button onClick={() => navigate('/admin/register-company')} className="bg-red-500 text-sm text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md shadow-md hover:bg-red-600 cursor-pointer w-full sm:w-auto">
-             New Company
+          <button
+            onClick={() => navigate("/admin/register-company")}
+            className="bg-red-500 text-sm text-white px-2 py-1 sm:px-4 sm:py-2 rounded-md shadow-md hover:bg-red-600 cursor-pointer w-full sm:w-auto"
+          >
+            New Company
           </button>
         </div>
 
