@@ -5,6 +5,7 @@ import {
   createNewJob,
   getAllJobs,
   getJobsById,
+  // fetchJobsCreated
 } from "../Controllers/job.controller.js";
 
 const router = express.Router();
@@ -17,5 +18,12 @@ router.get("/alljobs", getAllJobs);
 
 // get jobs with its id route
 router.get("/:id", isUserAuthenticated, getJobsById);
+
+// router.get(
+//   "/getcreatedJobs",
+//   isUserAuthenticated,
+//   isUserRecruiter,
+//   fetchJobsCreated
+// );
 
 export default router;
