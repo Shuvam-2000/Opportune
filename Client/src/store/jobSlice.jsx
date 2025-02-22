@@ -4,7 +4,7 @@ const jobSlice = createSlice({
     name: "job",
     initialState:{
         alljobs: [],   // store the job data in array
-        singlejob: null  // store single job information
+        singlejob: null,  // store single job information
     },
     reducers:{
         // actions
@@ -13,7 +13,7 @@ const jobSlice = createSlice({
         },
         setSingleJob:(state, action) => {
             state.singlejob = action.payload  // get single job from backend
-        }
+        },
     }
 })
 
