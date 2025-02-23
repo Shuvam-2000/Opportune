@@ -2,7 +2,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeftToLine } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSingleCompany } from "../store/companySlice";
 import axios from "axios";
 import { useState } from "react";
@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 const AddNewCompany = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // state to handle company data
   const [companyData, setCompanyData] = useState({
@@ -18,10 +18,13 @@ const AddNewCompany = () => {
     description: "",
   });
 
-  // onchange function to handle company data 
+  // onchange function to handle company data
   const companyDataHandler = (e) => {
     setCompanyData({ ...companyData, [e.target.name]: e.target.value });
   };
+
+  // fetch all companies data from the redux store
+  const { allcompanies } = useSelector((store) => store.company);
 
   // functionality to regsiter new company
   const registerNewCompany = async () => {
@@ -37,7 +40,7 @@ const AddNewCompany = () => {
         }
       );
       if (res?.data?.success) {
-        dispatch(setSingleCompany(res.data.company)) // store company data to redux
+        dispatch(setSingleCompany(res.data.company)); // store company data to redux
         toast.success(res?.data?.message || "Company Registered Successfully!");
 
         // fetching registred compnay id from backend
@@ -95,15 +98,30 @@ const AddNewCompany = () => {
           value={companyData.description}
           onChange={companyDataHandler}
         />
-        <button
-          onClick={registerNewCompany}
-          type="submit"
-          className="w-full bg-red-500 text-white mt-6 sm:px-2 sm:py-2 px-2 py-1 rounded-md hover:bg-red-600 transition-all duration-300 cursor-pointer"
-        >
-          Continue
-        </button>
+        {/* Register Company Button */}
+        {allcompanies.length > 0 ? (
+          <p className="text-sm text-center text-gray-700 mt-6">
+            You have Already Registered a Company.{" "}
+            <span
+              className="text-red-500 underline cursor-pointer"
+              onClick={() => navigate("/create-job")}
+            >
+              Create a Job
+            </span>
+          </p>
+        ) : (
+          <>
+            <p className="text-center mt-6 mb-0 text-sm text-red-500">You can Register Only One Company</p>
+            <button
+              onClick={registerNewCompany}
+              type="submit"
+              className="w-full bg-red-500 text-white mt-6 sm:px-2 sm:py-2 px-2 py-1 rounded-md hover:bg-red-600 transition-all duration-300 cursor-pointer"
+            >
+              Continue
+            </button>
+          </>
+        )}
       </div>
-
       <Footer />
     </>
   );
