@@ -2,24 +2,22 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setlodaing, setUser } from "../store/authSlice";
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.auth);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm();
 
   const onsubmit = async (data) => {
     try {
-      dispatch(setlodaing(true));
       const response = await axios.post(
         "http://localhost:4000/user/login",
         data,
@@ -31,7 +29,7 @@ const Login = () => {
         }
       );
       toast.success(response.data.message);
-      dispatch(setUser(response.data.user))
+      dispatch(setUser(response.data.user));
       reset();
       navigate("/");
     } catch (error) {
@@ -41,8 +39,6 @@ const Login = () => {
         toast.error("An unexpected error occurred");
       }
       reset();
-    } finally {
-      dispatch(setlodaing(false));
     }
   };
 
@@ -161,18 +157,8 @@ const Login = () => {
         </div>
 
         {/* Submit Button */}
-        <button
-          disabled={isSubmitting || loading}
-          className="w-full bg-red-500 hover:bg-red-600 text-white font-medium text-sm py-2 rounded-lg mt-4 cursor-pointer transition-all disabled:opacity-50 flex items-center justify-center"
-        >
-          {isSubmitting || loading ? (
-            <>
-              <span className="mr-2">Submitting...</span>
-              <div className="spinner-border animate-spin h-5 w-5 border-t-2 border-white rounded-full"></div>
-            </>
-          ) : (
-            "Login"
-          )}
+        <button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium text-sm py-2 rounded-lg mt-4 cursor-pointer transition-all disabled:opacity-50 flex items-center justify-center">
+          Login
         </button>
       </form>
     </div>

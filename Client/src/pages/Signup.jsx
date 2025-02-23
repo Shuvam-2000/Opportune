@@ -2,18 +2,14 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useDispatch, useSelector } from "react-redux";
-import { setlodaing } from "../store/authSlice";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { loading } = useSelector((store) => store.auth);
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm();
 
@@ -31,7 +27,6 @@ const SignUp = () => {
 
     // API call for user registration
     try {
-      dispatch(setlodaing(true));
       const response = await axios.post(
         "http://localhost:4000/user/signup",
         formData, // sending formdata to the backend
@@ -52,8 +47,6 @@ const SignUp = () => {
       } else {
         toast.error("An unexpected error occurred");
       }
-    } finally {
-      dispatch(setlodaing(false));
     }
   };
 
@@ -238,18 +231,8 @@ const SignUp = () => {
         </div>
 
         {/* Submit Button */}
-        <button
-          disabled={isSubmitting || loading}
-          className="w-full bg-red-500 hover:bg-red-600 text-white font-medium text-sm py-2 rounded-lg mt-4 cursor-pointer transition-all disabled:opacity-50 flex items-center justify-center"
-        >
-          {isSubmitting || loading ? (
-            <>
-              <span className="mr-2">Submitting...</span>
-              <div className="spinner-border animate-spin h-5 w-5 border-t-2 border-white rounded-full"></div>
-            </>
-          ) : (
-            "SignUp"
-          )}
+        <button className="w-full bg-red-500 hover:bg-red-600 text-white font-medium text-sm py-2 rounded-lg mt-4 cursor-pointer transition-all disabled:opacity-50 flex items-center justify-center">
+          SignUp
         </button>
 
         {/* Already Have an Account */}
