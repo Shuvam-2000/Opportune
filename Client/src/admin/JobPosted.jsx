@@ -3,6 +3,7 @@ import { ArrowLeftToLine, SquarePlus } from "lucide-react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
+import { Eye } from 'lucide-react';
 
 const JobPosted = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const JobPosted = () => {
                   <th className="px-4 py-3 text-sm">Job Title</th>
                   <th className="px-4 py-3 text-sm">Location</th>
                   <th className="px-4 py-3 text-sm">Job Created</th>
-                  <th className="px-4 py-3 text-sm w-32 text-center">Action</th>
+                  <th className="px-4 py-3 text-sm w-32 text-center">View</th>
                 </tr>
               </thead>
               <tbody>
@@ -56,9 +57,10 @@ const JobPosted = () => {
                       </td>
                       <td className="px-4 py-3 text-center">
                         <button
-                          className="bg-red-500 text-white px-3 py-1 text-xs sm:text-sm rounded-md shadow-md hover:bg-red-600 transition cursor-pointer"
+                          className="bg-red-500 items-center flex gap-2 text-white px-3 py-1 text-xs sm:text-sm rounded-md shadow-md hover:bg-red-600 transition cursor-pointer"
                           onClick={() => navigate(`/applicants/${job._id}`)}
                         >
+                          <Eye size={15} />
                           Applicants
                         </button>
                       </td>
