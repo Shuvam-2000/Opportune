@@ -16,6 +16,7 @@ import UpdateInfo from "./admin/UpdateInfo";
 import AddNewCompany from "./admin/AddNewCompany";
 import CreateJob from "./admin/CreateJob";
 import Applicants from "./admin/Applicants";
+import ApplicantsTable from "./admin/ApplicantsTable";
 import "./index.css";
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
           <Route path="/admin/register-company" element={<AddNewCompany />} />
           <Route path="/create-job" element={<CreateJob />} />
           <Route path="/applicants/:id" element={<Applicants />} />
+          <Route path="/applicantinfo" element={<ApplicantsTable />} />
 
           {/* Routes for Dashboard(User Profile) */}
           <Route path="/dashboard" element={<Dashboard />} />
