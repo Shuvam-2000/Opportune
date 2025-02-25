@@ -1,35 +1,41 @@
+import { useEffect } from "react";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import ApplicantsTable from "./ApplicantsTable";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setApplicants } from "../store/applicationSlice";
 
 const Applicants = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { applicants } = useSelector((store) => store.application)
+  useEffect(() => {
+    const fetchApplicants = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:4000/application/applicants/${id}`,
+          {
+            withCredentials: true,
+          }
+        );
+        if (res?.data.success) {
+          dispatch(setApplicants(res?.data?.job));
+        }
+      } catch (error) {
+        console.error("Error", error);
+      }
+    };
+    fetchApplicants();
+  }, []);
   return (
     <>
       <Navbar />
-      <div className="mt-4 p-6 bg-white shadow-lg rounded-lg max-w-8xl mx-auto">
-        <div className="sm:text-2xl text-xl font-bold text-black mb-4">
-          JobTitle
-        </div>
-        <div className="space-y-4">
-          <p className="text-gray-700 sm:text-lg text-sm">jobDescription</p>
-          <p className="sm:text-lg text-sm font-semibold">
-            Location: <span className="font-normal">jobLocation</span>
-          </p>
-          <p className="sm:text-lg text-sm font-semibold">
-            Experience Required: <span className="font-normal">experience</span>
-          </p>
-          <p className="sm:text-lg text-sm  font-semibold">
-            Package: <span className="font-normal">packageOffered</span>
-          </p>
-          <p className="sm:text-lg text-sm  font-semibold">
-            Number of Positions:{" "}
-            <span className="font-normal">openPositions</span>
-          </p>
-          <p className="sm:text-lg text-sm  font-semibold">
-            Job Posted: <span className="font-normal">Date</span>
-            <p className="sm:text-lg text-sm mt-4 font-semibold">
-              Number of Positions: <span className="font-normal">3</span>
-            </p>
-          </p>
+      <div className="max-w-7xl mx-auto my-10 px-4">
+        <h1 className="text-2xl font-semibold mb-4">Applicants: ({applicants?.applications?.length})</h1>
+        <div className="border rounded-lg shadow-md p-4 mt-6 bg-white">
+          <ApplicantsTable />
         </div>
       </div>
       <Footer />
