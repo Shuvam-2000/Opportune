@@ -5,6 +5,7 @@ const jobSlice = createSlice({
     initialState:{
         alljobs: [],   // store the job data in array
         singlejob: null,  // store single job information
+        searchJobQuery: ""  // searched job query set to empty string
     },
     reducers:{
         // actions
@@ -14,8 +15,11 @@ const jobSlice = createSlice({
         setSingleJob:(state, action) => {
             state.singlejob = action.payload  // get single job from backend
         },
+        setSearchJobQuery:(state, action) => {
+            state.searchJobQuery = action.payload  // get search job to query
+        }
     }
 })
 
-export const { setallJobs, setSingleJob } = jobSlice.actions;
+export const { setallJobs, setSingleJob, setSearchJobQuery } = jobSlice.actions;
 export default jobSlice.reducer;
