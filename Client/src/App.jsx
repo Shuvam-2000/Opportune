@@ -17,6 +17,8 @@ import AddNewCompany from "./admin/AddNewCompany";
 import CreateJob from "./admin/CreateJob";
 import Applicants from "./admin/Applicants";
 import ApplicantsTable from "./admin/ApplicantsTable";
+import AdminRouteProtect from "./admin/AdminRouteProtect";
+import ClientRouteProtect from "./components/ClientRouteProtect";
 import "./index.css";
 
 function App() {
@@ -32,22 +34,99 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="browse" element={<Browse />} />
-            <Route path="jobdescription/:id" element={<JobDescription />} />
+            <Route
+              path="jobdescription/:id"
+              element={
+                <ClientRouteProtect>
+                  <JobDescription />
+                </ClientRouteProtect>
+              }
+            />
           </Route>
 
           {/* Routes for Admin */}
-          <Route path="/admin/companies" element={<Company />} />
-          <Route path="/admin/jobs" element={<JobPosted />} />
-          <Route path="/update-companyinfo/:id" element={<UpdateInfo />} />
-          <Route path="/admin/register-company" element={<AddNewCompany />} />
-          <Route path="/create-job" element={<CreateJob />} />
-          <Route path="/applicants/:id" element={<Applicants />} />
-          <Route path="/applicantinfo" element={<ApplicantsTable />} />
+          <Route
+            path="/admin/companies"
+            element={
+              <AdminRouteProtect>
+                <Company />
+              </AdminRouteProtect>
+            }
+          />
+          <Route
+            path="/admin/jobs"
+            element={
+              <AdminRouteProtect>
+                <JobPosted />
+              </AdminRouteProtect>
+            }
+          />
+          <Route
+            path="/update-companyinfo/:id"
+            element={
+              <AdminRouteProtect>
+                <UpdateInfo />
+              </AdminRouteProtect>
+            }
+          />
+          <Route
+            path="/admin/register-company"
+            element={
+              <AdminRouteProtect>
+                <AddNewCompany />
+              </AdminRouteProtect>
+            }
+          />
+          <Route
+            path="/create-job"
+            element={
+              <AdminRouteProtect>
+                <CreateJob />
+              </AdminRouteProtect>
+            }
+          />
+          <Route
+            path="/applicants/:id"
+            element={
+              <AdminRouteProtect>
+                <Applicants />
+              </AdminRouteProtect>
+            }
+          />
+          <Route
+            path="/applicantinfo"
+            element={
+              <AdminRouteProtect>
+                <ApplicantsTable />
+              </AdminRouteProtect>
+            }
+          />
 
           {/* Routes for Dashboard(User Profile) */}
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/appliedjobs" element={<AppliedJobs />} />
-          <Route path="/update-profile" element={<UpdateProfile />} />
+          <Route
+            path="/dashboard"
+            element={
+              <ClientRouteProtect>
+                <Dashboard />
+              </ClientRouteProtect>
+            }
+          />
+          <Route
+            path="/appliedjobs"
+            element={
+              <ClientRouteProtect>
+                <AppliedJobs />
+              </ClientRouteProtect>
+            }
+          />
+          <Route
+            path="/update-profile"
+            element={
+              <ClientRouteProtect>
+                <UpdateProfile />
+              </ClientRouteProtect>
+            }
+          />
         </Routes>
       </div>
     </BrowserRouter>
