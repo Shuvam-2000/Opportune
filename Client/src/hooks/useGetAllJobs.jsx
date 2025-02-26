@@ -3,36 +3,37 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setallJobs } from "../store/jobSlice";
 
-const useGetAllJobs = () => {
+const useGetAllJobs = (filterBySearch = false) => {  // Pass true to apply search filter
   const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  // state to handle error messages
-  const [errorMessage, setErrorMessage] = useState('')
+  const { searchJobQuery } = useSelector((store) => store.job);
 
-  // fetching fetched query from the redux store
-  const { searchedQuery } = useSelector((store) => store.job);
   useEffect(() => {
     const getAllJobs = async () => {
       try {
-        // check if search query is empty or keyword is provided if not then do not append the ?keyowrd to the API url
-        const queryparams = searchedQuery ? `?keyword=${searchedQuery}` : "";
+        // Apply search filter only if filterBySearch is true
+        let queryparams = "";
+        if (filterBySearch && searchJobQuery) {
+          queryparams = `?keyword=${searchJobQuery}`;
+        }
+
         const res = await axios.get(
           `http://localhost:4000/jobs/alljobs${queryparams}`,
-          {
-            withCredentials: true,
-          }
+          { withCredentials: true }
         );
+
         if (res.data?.success) {
-          dispatch(setallJobs(res.data.allJobs)); // disptach the fetched jobs to redux store
+          dispatch(setallJobs(res.data.allJobs));  // Store jobs in Redux
         }
       } catch (error) {
-        console.error("Error fetching jobs:", error); // Debugging log
         setErrorMessage(error.response?.data?.message || "Failed to fetch jobs");
       }
     };
     getAllJobs();
-  }, [searchedQuery, dispatch]); // run when searchedQuery or distpatch changes
-  return { errorMessage };  // error message in case the jobs fetching failed
+  }, [searchJobQuery, dispatch, filterBySearch]);
+
+  return { errorMessage };
 };
 
 export default useGetAllJobs;
