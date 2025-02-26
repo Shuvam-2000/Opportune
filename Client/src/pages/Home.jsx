@@ -5,6 +5,7 @@ import Banner from "../components/Banner";
 import JobCategory from "../components/JobCategory";
 import LatestJobs from "../components/LatestJobs";
 import useGetAllJobs from "../hooks/useGetAllJobs";
+import ScrollToTop from "../components/ScrollToTop";
 
 const Home = () => {
   const { user } = useSelector((store) => store.auth);
@@ -20,6 +21,7 @@ const Home = () => {
   }, []);
   return (
     <>
+      <ScrollToTop />
       <Banner />
       <JobCategory />
       <LatestJobs />
