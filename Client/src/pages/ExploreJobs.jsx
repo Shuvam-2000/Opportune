@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useSelector } from "react-redux";
+import { setSearchJobQuery } from "../store/jobSlice";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import useGetAllJobs from "../hooks/useGetAllJobs";
+import { motion } from "framer-motion";
 
 const ExploreJobs = () => {
+  useGetAllJobs(false); // set search filter to false
+
   // state to show job filters
   const [showFilters, setShowFilters] = useState(false);
+  const dispatch = useDispatch();
+
+  // clear searchjobQuery in redux
+  useEffect(() => {
+    dispatch(setSearchJobQuery("")); // Reset search query on mount
+  }, [dispatch]);
 
   // fetching all the jobs posted from the redux store
   const { alljobs } = useSelector((store) => store.job);
@@ -172,7 +184,13 @@ const ExploreJobs = () => {
         </div>
 
         {/* Job Cards (Right) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full sm:mt-0 mt-10">
+        <motion.div
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0}}
+          exit={{opacity: 0, x: -100}}
+          transition={{duration: 0.3}}
+          className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full sm:mt-0 mt-10"
+        >
           {alljobs.length > 0 ? (
             alljobs.map((job) => (
               <div
@@ -200,7 +218,7 @@ const ExploreJobs = () => {
                       Exp: {job.experience}
                     </span>
                     <span className="w-full sm:w-auto">
-                      Positions: {job.openPositions || "Not Disclosed"}
+                      Location: {job.jobLocation || "Not Disclosed"}
                     </span>
                   </div>
                 </div>
@@ -219,7 +237,7 @@ const ExploreJobs = () => {
               No Jobs Available Now
             </p>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
