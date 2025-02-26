@@ -5,7 +5,7 @@ import ApplicantsTable from "./ApplicantsTable";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setApplicants } from "../store/applicationSlice";
+import { resetApplicants, setApplicants } from "../store/applicationSlice";
 
 const Applicants = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ const Applicants = () => {
   const { applicants } = useSelector((store) => store.application)
   useEffect(() => {
     const fetchApplicants = async () => {
+      dispatch(resetApplicants())  // reset data to null
       try {
         const res = await axios.get(
           `http://localhost:4000/application/applicants/${id}`,
@@ -20,7 +21,7 @@ const Applicants = () => {
             withCredentials: true,
           }
         );
-        if (res?.data.success) {
+        if (res?.data?.success) {
           dispatch(setApplicants(res?.data?.job));
         }
       } catch (error) {
