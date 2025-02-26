@@ -15,7 +15,9 @@ const LatestJobs = () => {
       </p>
 
       {/* Job Postings */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+      >
         {alljobs?.length > 0 ? (
           alljobs.slice(0, 6).map((job) => (
             <div
