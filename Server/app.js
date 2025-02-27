@@ -7,6 +7,7 @@ import userRoute from './routes/user.routes.js';
 import companyRoute from './routes/company.routes.js';
 import jobRoute from './routes/job.routes.js';
 import applicationRoute from './routes/application.routes.js'
+import chatRoute from './routes/chat.routes.js'
 
 // intilaize the app
 const app = express();
@@ -36,6 +37,7 @@ app.use('/user', userRoute);  // user route
 app.use('/company', companyRoute); // comapany route
 app.use('/jobs', jobRoute); // job route
 app.use('/application', applicationRoute); // application route
+app.use('/chat', chatRoute)  // chat route
 
 // Start the Server
 app.listen(PORT, () => console.log(`Server runing on PORT: ${PORT}`));
