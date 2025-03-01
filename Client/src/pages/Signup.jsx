@@ -23,7 +23,7 @@ const SignUp = () => {
       } else {
         formData.append(key, data[key]); // Append only normal fields
       }
-    }
+    } 
 
     // API call for user registration
     try {

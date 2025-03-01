@@ -19,7 +19,7 @@ import Applicants from "./admin/Applicants";
 import ApplicantsTable from "./admin/ApplicantsTable";
 import AdminRouteProtect from "./admin/AdminRouteProtect";
 import ClientRouteProtect from "./components/ClientRouteProtect";
-import "./index.css";
+import "./index.css"; 
 
 function App() {
   return (
