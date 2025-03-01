@@ -23,7 +23,7 @@ app.use(express.json());  // Parse JSON request bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
 app.use(cookieParser()); // Enable Cookie Parsing
 app.use(cors({
-    origin: 'http://localhost:5173',  // Frontend URL
+    origin: 'https://opportune-y6jm.onrender.com',  // Frontend URL
     credentials: true // Allow credentials(cookies)
 })); 
 
