@@ -18,20 +18,13 @@ const Home = () => {
     if (user?.role === "recruiter") {
       navigate("/admin/companies", { replace: true });
     }
-  }, []); // Fixed missing dependencies
-
+  }, []);
   return (
     <>
       <ScrollToTop />
-      <div className="container mx-auto px-4 sm:px-8 lg:px-16">
-        <Banner />
-        <div className="mt-8">
-          <JobCategory />
-        </div>
-        <div className="mt-8">
-          <LatestJobs />
-        </div>
-      </div>
+      <Banner />
+      <JobCategory />
+      <LatestJobs />
     </>
   );
 };
