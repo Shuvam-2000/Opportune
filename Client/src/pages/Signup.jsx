@@ -28,7 +28,7 @@ const SignUp = () => {
     // API call for user registration
     try {
       const response = await axios.post(
-        "http://localhost:4000/user/signup",
+        "https://opportune-server.onrender.com/user/signup",
         formData, // sending formdata to the backend
         {
           headers: {

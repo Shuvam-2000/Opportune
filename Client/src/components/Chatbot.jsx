@@ -27,7 +27,7 @@ const Chatbot = () => {
 
         try {
             // Send user input to the backend API
-            const { data } = await axios.post("http://localhost:4000/chat/job-recommend", { query: input });
+            const { data } = await axios.post("https://opportune-server.onrender.com/chat/job-recommend", { query: input });
 
             // Format AI response (remove unwanted newlines)
             const formattedResponse = data.response.replace(/\*\*/g, "").replace(/\n/g, " ").split(". ").filter(line => line.trim() !== "");

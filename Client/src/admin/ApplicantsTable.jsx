@@ -12,7 +12,7 @@ const ApplicantsTable = () => {
   // functionlity to update the job application status
   const handleStatusChange = async (applicantId, newStatus) => {
     try {
-      await axios.post(`http://localhost:4000/application/status/${applicantId}/update`, {
+      await axios.post(`https://opportune-server.onrender.com/application/status/${applicantId}/update`, {
         applicationStatus: newStatus   // send updated status to the backend
       },{
         withCredentials: true

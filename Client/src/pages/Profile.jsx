@@ -20,7 +20,7 @@ const Profile = () => {
         return toast.error("User ID not found");
       }
       const res = await axios.delete(
-        `http://localhost:4000/user/profiledelete/${user?._id}`,
+        `https://opportune-server.onrender.com/user/profiledelete/${user?._id}`,
         {
           withCredentials: true,
         }

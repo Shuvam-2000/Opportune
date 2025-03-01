@@ -19,7 +19,7 @@ const useGetAllJobs = (filterBySearch = false) => {  // Pass true to apply searc
         }
 
         const res = await axios.get(
-          `http://localhost:4000/jobs/alljobs${queryparams}`,
+          `https://opportune-server.onrender.com/jobs/alljobs${queryparams}`,
           { withCredentials: true }
         );
 

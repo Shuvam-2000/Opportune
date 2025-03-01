@@ -16,7 +16,7 @@ const Applicants = () => {
       dispatch(resetApplicants())  // reset data to null
       try {
         const res = await axios.get(
-          `http://localhost:4000/application/applicants/${id}`,
+          `https://opportune-server.onrender.com/application/applicants/${id}`,
           {
             withCredentials: true,
           }

@@ -49,7 +49,7 @@ const UpdateProfile = () => {
       return toast.error("User ID not found");
     }
     try {
-      const res = await axios.put(`http://localhost:4000/user/profileupdate/${user?._id}`, formData,{
+      const res = await axios.put(`https://opportune-server.onrender.com/user/profileupdate/${user?._id}`, formData,{
         headers: {
           "Content-Type": "multipart/form-data",
         },

@@ -14,7 +14,7 @@ const AppliedJobs = () => {
     const appliedJobData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:4000/application/jobsapplied",
+          "https://opportune-server.onrender.com/application/jobsapplied",
           {
             withCredentials: true,
           }

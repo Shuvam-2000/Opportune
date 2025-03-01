@@ -30,7 +30,7 @@ const AddNewCompany = () => {
   const registerNewCompany = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:4000/company/register",
+        "https://opportune-server.onrender.com/company/register",
         companyData, // Send all companyData
         {
           withCredentials: true,

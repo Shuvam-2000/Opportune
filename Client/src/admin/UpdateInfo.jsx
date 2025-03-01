@@ -51,7 +51,7 @@ const UpdateInfo = () => {
     }
     try {
       const res = await axios.put(
-        `http://localhost:4000/company/companyInfo/${params.id}`,
+        `https://opportune-server.onrender.com/company/companyInfo/${params.id}`,
         formData,
         {
           headers: {

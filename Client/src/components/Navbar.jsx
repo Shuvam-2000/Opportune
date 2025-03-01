@@ -24,7 +24,7 @@ const Navbar = () => {
   // user logout functionality
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:4000/user/logout", {
+      await axios.get("https://opportune-server.onrender.com/user/logout", {
         withCredentials: true,
       });
       dispatch(setUser(null));

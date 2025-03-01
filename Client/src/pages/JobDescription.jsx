@@ -33,7 +33,7 @@ const JobDescription = () => {
   const applyToJob = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/application/apply/${jobId}`,
+        `https://opportune-server.onrender.com/application/apply/${jobId}`,
         { withCredentials: true }
       );
 

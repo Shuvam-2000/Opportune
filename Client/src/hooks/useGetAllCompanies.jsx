@@ -9,7 +9,7 @@ const useGetAllCompanies = () => {
     useEffect(() => {
         const getAllCompaniesData = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/company/mycompanies`,{withCredentials: true})
+                const res = await axios.get(`https://opportune-server.onrender.com/company/mycompanies`,{withCredentials: true})
                 if(res?.data?.success){
                     dispatch(setAllCompany(res?.data?.company))
                 }
