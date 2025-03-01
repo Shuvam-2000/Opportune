@@ -21,6 +21,15 @@ export const jobRecommendationHandler = async (req, res) => {
       });
     }
 
+    // If the user says "hi" or similar greetings, respond accordingly
+    const greetings = ["hi", "hello", "hey"];
+    if (greetings.includes(query)) {
+      return res.status(200).json({
+        response: "Hi, I can assist you with job recommendations!",
+        success: true,
+      });
+    }
+
     // Handle Irrelevant Queries
     const jobKeywords = [
       "job",
@@ -60,8 +69,8 @@ export const jobRecommendationHandler = async (req, res) => {
       .join("\n");
 
     // AI Prompt
-    const prompt = `You are an AI job recommendation assistant. Recommend jobs based on the user's query. Only use the given job database information:\n\n${jobDataText}\n\nUser Query: ${query}`;
-
+    const prompt = `You are an AI job recommendation assistant. Recommend jobs based on the user's query. If no relevant jobs are found, respond professionally without mentioning a database.\n\nAvailable Jobs:\n${jobDataText}\n\nUser Query: ${query}`;
+    
     // Use Gemini AI Model
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);

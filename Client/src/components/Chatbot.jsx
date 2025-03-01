@@ -35,7 +35,7 @@ const Chatbot = () => {
             // Add AI response to the chat
             setMessages(prev => [...prev, { sender: "bot", text: formattedResponse.join(". ") }]);
         } catch (error) {
-            setMessages(prev => [...prev, { sender: "bot", text: "Sorry, I can Only recommend Jobs based on skills, location & experience", error }]);
+            setMessages(prev => [...prev, { sender: "bot", text: (error?.response?.data?.message), error }]);
         }
 
         setInput(""); // Clear input field
